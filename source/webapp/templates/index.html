@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block menu %}
-    <li><a href="">Add Issue</a></li>
+    <li><a href="{% url 'issue_add' %}">Add Issue</a></li>
 {% endblock %}
 
 {% block content %}
@@ -14,8 +14,8 @@
         </p>
         <p>
             <a href="{% url 'issue_view' issue.pk %}">More...</a>
-            <a href="">Edit</a>
-            <a href="">Delete</a>
+            <a href="{% url 'issue_update' issue.pk %}">Edit</a>
+            <a href="{% url 'issue_delete' issue.pk %}">Delete</a>
         </p>
         <hr/>
     {% endfor %}

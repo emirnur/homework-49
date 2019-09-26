@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}Update Issue{% endblock %}
+
+{% block menu %}
+    <li><a href="{% url 'issue_view' issue.pk %}">View</a></li>
+{% endblock %}
+
+{% block content %}
+    <h1>Update Issue</h1>
+    <form method="POST" action="{% url 'issue_update' issue.pk %}">
+        {% include 'partial/issue_form.html' with button_text="Update" %}
+    </form>
+{% endblock %}
