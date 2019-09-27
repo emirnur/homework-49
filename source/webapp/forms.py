@@ -12,5 +12,10 @@ class TrackerIssueForm(forms.Form):
     type = forms.ModelChoiceField(queryset=Type.objects.all(), required=False, label='Тип задачи',
                                       empty_label=None)
 
+
 class StatusForm(forms.Form):
     name = forms.CharField(max_length=20, label='Статус', required=False)
+
+
+class TypeForm(forms.Form):
+    name = forms.CharField(max_length=20, label='Тип', required=False)

@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from webapp.models import TrackerIssue, Status, Type
 from django.views import View
 from django.views.generic import TemplateView
-from webapp.forms import TrackerIssueForm, StatusForm
+from webapp.forms import TrackerIssueForm, StatusForm, TypeForm
 
 
 class IndexView(TemplateView):
@@ -136,4 +136,60 @@ class StatusDeleteView(View):
         status.delete()
         return redirect('status_view')
 
+
+class TypeView(TemplateView):
+    template_name = 'type_index.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['types'] = Type.objects.all()
+        return context
+
+
+class TypeCreateView(View):
+    def get(self, request, *args, **kwargs):
+        form = TypeForm()
+        return render(request, 'type_create.html', context={'form': form})
+
+    def post(self, request, *args, **kwargs):
+        form = TypeForm(data=request.POST)
+        if form.is_valid():
+            Type.objects.create(
+                name=form.cleaned_data['name'],
+            )
+            return redirect('type_view')
+        else:
+            return render(request, 'type_create.html', context={'form': form})
+
+
+class TypeUpdateView(View):
+
+    def get(self, request, pk):
+        typeof = get_object_or_404(Type, pk=pk)
+        form = TypeForm(data={
+            'name': typeof.name
+        })
+        return render(request, 'type_update.html', context={'form': form, 'type': typeof})
+
+    def post(self, request, pk):
+        typeof = get_object_or_404(Type, pk=pk)
+        form = TypeForm(data=request.POST)
+        if form.is_valid():
+            typeof.name = form.cleaned_data['name']
+            typeof.save()
+            return redirect('type_view')
+        else:
+            return render(request, 'type_update.html', context={'form': form, 'type': typeof})
+
+
+class TypeDeleteView(View):
+
+    def get(self, request, pk):
+        typeof = get_object_or_404(Type, pk=pk)
+        return render(request, 'type_delete.html', context={'type': typeof})
+
+    def post(self, request, pk):
+        typeof = get_object_or_404(Type, pk=pk)
+        typeof.delete()
+        return redirect('type_view')
 
