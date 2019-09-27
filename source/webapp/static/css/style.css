@@ -1,0 +1,126 @@
+form label {
+    width: 150px;
+    display: inline-block;
+}
+
+body{
+    background-color: cadetblue;
+    margin-top: 60px;
+    overflow-wrap: break-word;
+}
+
+.container {
+    max-width: 800px;
+    width: 90%;
+    margin: 0 auto;
+}
+
+.navbar {
+    display: block;
+    background: darkslategray;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    font-size: 0;
+    box-sizing: border-box;
+    padding: 7px 30px;
+    z-index: 9999;
+}
+
+.menu {
+    font-size: 14px;
+    line-height: 1;
+    padding: 0;
+    margin: 0;
+    display: inline-block;
+    color: #fffee8;
+}
+
+.menu li {
+    display: inline-block;
+}
+
+.menu a {
+    display: inline-block;
+    text-decoration: none;
+    color: inherit;
+    padding: 5px 15px;
+}
+
+.menu a:hover {
+    color: #ffc122;
+    text-decoration: underline;
+}
+
+.text-center {
+    text-align: center;
+}
+
+
+.form-error {
+    color: red;
+    font-size: 12px;
+    margin: 5px 0 0 0
+}
+
+.field-error {
+    border: solid 1px red;
+    box-shadow: red 0 0 3px;
+}
+
+.form-required {
+    color: red;
+    font-weight: bold;
+}
+
+.form-control {
+    padding: 5px;
+    font-size: 16px;
+    border-radius: 5px;
+    display: block;
+    width: 100%;
+    border: solid 1px lightgray;
+    box-sizing: border-box;
+    background: white;
+}
+
+.btn {
+    padding: 5px 15px;
+    border-radius: 5px;
+    border: none;
+    font-size: 16px;
+    text-align: center;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    color: white;
+}
+
+.btn-default {
+    background: gray;
+}
+
+.btn-default:hover {
+    box-shadow: rgba(128, 128, 128, 0.8) 0 0 5px;
+}
+
+.btn-primary {
+    background: dodgerblue;
+}
+
+.btn-primary:hover {
+    box-shadow: rgba(30, 144, 255, 0.8) 0 0 5px;
+}
+
+.btn-danger {
+    background: red;
+}
+
+.btn-danger:hover {
+    box-shadow: rgba(255, 0, 0, 0.8) 0 0 5px;
+}
+
+.footer{
+    background-color: darkcyan;
+}

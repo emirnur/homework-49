@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block content %}
-    <h1>Are you sure want to delete issue "{{ article }}"?</h1>
+    <h1>Are you sure want to delete issue "{{ issue.summary }}"?</h1>
     <form method="POST" action="{% url 'issue_delete' issue.pk %}" class="text-center">
         {% csrf_token %}
         <p><input type="submit" value="Confirm"></p>
