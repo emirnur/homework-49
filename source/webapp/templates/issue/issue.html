@@ -3,8 +3,8 @@
 {% block title %}{{ article.title }}{% endblock %}
 
 {% block menu %}
-    <li><a href="">Edit</a></li>
-    <li><a href="">Delete</a></li>
+    <li><a href="{% url 'issue_update' issue.pk %}">Edit</a></li>
+    <li><a href="{% url 'issue_delete' issue.pk %}">Delete</a></li>
 {% endblock %}
 
 {% block content %}
@@ -13,6 +13,5 @@
     <div class="pre">description: {{issue.description}}</div>
     <p>Type is {{ issue.type|default_if_none:'is not defined' }}</p>
      <p>Status is {{ issue.status|default_if_none:'is not defined' }}</p>
-
 
 {% endblock %}
