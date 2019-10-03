@@ -48,9 +48,8 @@ body{
     padding: 5px 15px;
 }
 
-.menu a:hover {
-    color: #ffc122;
-    text-decoration: underline;
+h1 {
+    text-align: center;
 }
 
 .text-center {
@@ -85,42 +84,29 @@ body{
     background: white;
 }
 
-.btn {
-    padding: 5px 15px;
-    border-radius: 5px;
-    border: none;
-    font-size: 16px;
-    text-align: center;
-    font-weight: 600;
-    cursor: pointer;
-    text-decoration: none;
-    color: white;
+.container .pagination {
+   text-align: center;
 }
 
-.btn-default {
-    background: gray;
+.pagination a, .pagination .page-disabled {
+   display: inline-block;
+   border: solid 1px #6a7ddd;
+   border-radius: 3px;
+   padding: 5px;
+   margin: 3px;
 }
 
-.btn-default:hover {
-    box-shadow: rgba(128, 128, 128, 0.8) 0 0 5px;
+.pagination a {
+   background: darkslategray;
+   color: white;
 }
 
-.btn-primary {
-    background: dodgerblue;
+.pagination a:hover {
+   background: #6a7dff;
+   text-decoration: underline;
 }
 
-.btn-primary:hover {
-    box-shadow: rgba(30, 144, 255, 0.8) 0 0 5px;
-}
-
-.btn-danger {
-    background: red;
-}
-
-.btn-danger:hover {
-    box-shadow: rgba(255, 0, 0, 0.8) 0 0 5px;
-}
-
-.footer{
-    background-color: darkcyan;
+.pagination .page-disabled {
+   background: darkslategray;
+   color: #dddddd
 }

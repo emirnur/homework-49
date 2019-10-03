@@ -10,6 +10,8 @@ class IndexView(ListView):
     context_object_name = 'issues'
     model = TrackerIssue
     ordering = ['-created_at']
+    paginate_by = 3
+    paginate_orphans = 1
 
 
 class IssueView(TemplateView):

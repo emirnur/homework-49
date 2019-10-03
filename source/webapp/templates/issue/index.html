@@ -8,6 +8,9 @@
 
 {% block content %}
     <h1>Tracker Issues</h1>
+    {% if is_paginated %}
+        {% include 'partial/pagination.html' %}
+    {% endif %}
     <hr/>
     {% for issue in issues %}
         <h2>{{ issue.summary }}</h2>
@@ -21,4 +24,7 @@
         </p>
         <hr/>
     {% endfor %}
+    {% if is_paginated %}
+        {% include 'partial/pagination.html' %}
+    {% endif %}
 {% endblock %}
