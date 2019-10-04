@@ -3,6 +3,7 @@ from webapp.models import TrackerIssue
 from django.views import View
 from django.views.generic import TemplateView, ListView
 from webapp.forms import TrackerIssueForm
+from webapp.views.base_views import DetailView
 
 
 class IndexView(ListView):
@@ -14,13 +15,10 @@ class IndexView(ListView):
     paginate_orphans = 1
 
 
-class IssueView(TemplateView):
+class IssueView(DetailView):
     template_name = 'issue/issue.html'
-
-    def get_context_data(self, pk, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['issue'] = get_object_or_404(TrackerIssue, pk=pk)
-        return context
+    context_key = 'issue'
+    model = TrackerIssue
 
 
 class IssueCreateView(View):

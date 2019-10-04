@@ -84,8 +84,11 @@ h1 {
     background: white;
 }
 
-.container .pagination {
+.pagination {
    text-align: center;
+}
+.step-links{
+    margin: auto;
 }
 
 .pagination a, .pagination .page-disabled {
@@ -102,11 +105,11 @@ h1 {
 }
 
 .pagination a:hover {
-   background: #6a7dff;
+   background: seagreen;
    text-decoration: underline;
 }
 
 .pagination .page-disabled {
-   background: darkslategray;
+   background: darkcyan;
    color: #dddddd
 }
