@@ -1,7 +1,9 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.urls import reverse
+
 from webapp.models import TrackerIssue
 from django.views import View
-from django.views.generic import TemplateView, ListView
+from django.views.generic import TemplateView, ListView, CreateView
 from webapp.forms import TrackerIssueForm
 from webapp.views.base_views import DetailView
 
@@ -21,23 +23,33 @@ class IssueView(DetailView):
     model = TrackerIssue
 
 
-class IssueCreateView(View):
-    def get(self, request, *args, **kwargs):
-        form = TrackerIssueForm()
-        return render(request, 'issue/issue_create.html', context={'form': form})
+class IssueCreateView(CreateView):
+    template_name = 'issue/issue_create.html'
+    model = TrackerIssue
 
-    def post(self, request, *args, **kwargs):
-        form = TrackerIssueForm(data=request.POST)
-        if form.is_valid():
-            issue = TrackerIssue.objects.create(
-                summary=form.cleaned_data['summary'],
-                description=form.cleaned_data['description'],
-                status=form.cleaned_data['status'],
-                type=form.cleaned_data['type']
-            )
-            return redirect('issue_view', pk=issue.pk)
-        else:
-            return render(request, 'issue/issue_create.html', context={'form': form})
+    fields = ['summary', 'description', 'status', 'type']
+
+    def get_success_url(self):
+        return reverse('issue_view', kwargs={'pk': self.object.pk})
+
+
+# class IssueCreateView(View):
+#     def get(self, request, *args, **kwargs):
+#         form = TrackerIssueForm()
+#         return render(request, 'issue/issue_create.html', context={'form': form})
+#
+#     def post(self, request, *args, **kwargs):
+#         form = TrackerIssueForm(data=request.POST)
+#         if form.is_valid():
+#             issue = TrackerIssue.objects.create(
+#                 summary=form.cleaned_data['summary'],
+#                 description=form.cleaned_data['description'],
+#                 status=form.cleaned_data['status'],
+#                 type=form.cleaned_data['type']
+#             )
+#             return redirect('issue_view', pk=issue.pk)
+#         else:
+#             return render(request, 'issue/issue_create.html', context={'form': form})
 
 
 class IssueUpdateView(View):
