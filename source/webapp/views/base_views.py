@@ -53,3 +53,27 @@ class UpdateView(View):
         pk = self.kwargs.get(self.pk_kwargs_url)
         data = get_object_or_404(self.model, pk=pk)
         return data
+
+
+class DeleteView(View):
+    template_name = None
+    redirect_url = ''
+    model = None
+    context_object_name = None
+    confirm_deletion = None
+
+    def get(self, request, pk):
+        obj = get_object_or_404(self.model, pk=pk)
+        if self.confirm_deletion is True:
+            return render(request, self.template_name, context={self.context_object_name: obj})
+        else:
+            obj.delete()
+            return redirect(self.get_redirect_url())
+
+    def post(self, request, pk):
+        obj = get_object_or_404(self.model, pk=pk)
+        obj.delete()
+        return redirect(self.get_redirect_url())
+
+    def get_redirect_url(self):
+        return self.redirect_url

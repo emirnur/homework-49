@@ -5,7 +5,7 @@ from webapp.models import Status
 from django.views import View
 from django.views.generic import TemplateView, ListView, CreateView
 from webapp.forms import StatusForm
-from webapp.views.base_views import UpdateView
+from webapp.views.base_views import UpdateView, DeleteView
 
 
 class StatusView(ListView):
@@ -34,14 +34,13 @@ class StatusUpdateView(UpdateView):
         return reverse('status_view')
 
 
-class StatusDeleteView(View):
+class StatusDeleteView(DeleteView):
+    template_name = 'status/status_delete.html'
+    model = Status
+    context_object_name = 'status'
+    confirm_deletion = False
 
-    def get(self, request, pk):
-        status = get_object_or_404(Status, pk=pk)
-        return render(request, 'status/status_delete.html', context={'status': status})
+    def get_redirect_url(self):
+        return reverse('status_view')
 
-    def post(self, request, pk):
-        status = get_object_or_404(Status, pk=pk)
-        status.delete()
-        return redirect('status_view')
 

@@ -5,7 +5,7 @@ from webapp.models import TrackerIssue
 from django.views import View
 from django.views.generic import TemplateView, ListView, CreateView, UpdateView
 from webapp.forms import TrackerIssueForm
-from webapp.views.base_views import DetailView, UpdateView
+from webapp.views.base_views import DetailView, UpdateView, DeleteView
 
 
 class IndexView(ListView):
@@ -43,13 +43,11 @@ class IssueUpdateView(UpdateView):
         return reverse('issue_view', kwargs={'pk': self.object.pk})
 
 
-class IssueDeleteView(View):
+class IssueDeleteView(DeleteView):
+    template_name = 'issue/issue_delete.html'
+    model = TrackerIssue
+    context_object_name = 'issue'
+    confirm_deletion = True
 
-    def get(self, request, pk):
-        issue = get_object_or_404(TrackerIssue, pk=pk)
-        return render(request, 'issue/issue_delete.html', context={'issue': issue})
-
-    def post(self, request, pk):
-        issue = get_object_or_404(TrackerIssue, pk=pk)
-        issue.delete()
-        return redirect('index')
+    def get_redirect_url(self):
+        return reverse('index')
