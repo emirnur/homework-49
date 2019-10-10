@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ project.title }}{% endblock %}
+
+{% block menu %}
+    <li><a href="">Edit</a></li>
+    <li><a href="">Delete</a></li>
+{% endblock %}
+
+{% block content %}
+    <h1>{{ project.title }}</h1>
+    <p>Created at {{ project.created_at|date:'d.m.Y H:i:s' }} </p>
+    <div class="pre">description: {{project.description}}</div>
+
+{% endblock %}
