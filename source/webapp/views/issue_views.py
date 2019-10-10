@@ -1,11 +1,8 @@
-from django.shortcuts import render, get_object_or_404, redirect
-from django.urls import reverse
-
+from django.urls import reverse, reverse_lazy
 from webapp.models import TrackerIssue
-from django.views import View
-from django.views.generic import TemplateView, ListView, CreateView, UpdateView
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from webapp.forms import TrackerIssueForm
-from webapp.views.base_views import DetailView, UpdateView, DeleteView
+from webapp.views.base_views import DetailView
 
 
 class IndexView(ListView):
@@ -39,7 +36,7 @@ class IssueUpdateView(UpdateView):
     form_class = TrackerIssueForm
     context_object_name = 'issue'
 
-    def get_redirect_url(self):
+    def get_success_url(self):
         return reverse('issue_view', kwargs={'pk': self.object.pk})
 
 
@@ -47,7 +44,4 @@ class IssueDeleteView(DeleteView):
     template_name = 'issue/issue_delete.html'
     model = TrackerIssue
     context_object_name = 'issue'
-    confirm_deletion = True
-
-    def get_redirect_url(self):
-        return reverse('index')
+    success_url = reverse_lazy('index')
