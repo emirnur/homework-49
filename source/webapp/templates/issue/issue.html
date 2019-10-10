@@ -12,6 +12,7 @@
     <p>Created at {{ issue.created_at|date:'d.m.Y H:i:s' }} </p>
     <div class="pre">description: {{issue.description}}</div>
     <p>Type is {{ issue.type|default_if_none:'is not defined' }}</p>
-     <p>Status is {{ issue.status|default_if_none:'is not defined' }}</p>
+    <p>Status is {{ issue.status|default_if_none:'is not defined' }}</p>
+    <p>Project: {{ issue.project}}</p>
 
 {% endblock %}

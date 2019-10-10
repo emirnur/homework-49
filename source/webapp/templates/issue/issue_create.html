@@ -3,7 +3,7 @@
 {% block title %}Create Issue{% endblock %}
 
 {% block content %}
-    <h1>Create Article</h1>
+    <h1>Create Issue</h1>
     <form method="POST" action="{% url 'issue_add' %}">
         {% include 'partial/issue_form.html' with button_text="Create" %}
     </form>
