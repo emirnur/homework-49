@@ -47,8 +47,8 @@ class ProjectUpdateView(UpdateView):
         return reverse('project_view', kwargs={'pk': self.object.pk})
 
 
-# class IssueDeleteView(DeleteView):
-#     template_name = 'issue/issue_delete.html'
-#     model = TrackerIssue
-#     context_object_name = 'issue'
-#     success_url = reverse_lazy('index')
+class ProjectDeleteView(DeleteView):
+    template_name = 'project/project_delete.html'
+    model = Project
+    context_object_name = 'project'
+    success_url = reverse_lazy('project_index')

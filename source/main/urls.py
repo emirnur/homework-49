@@ -18,7 +18,8 @@ from django.urls import path
 from webapp.views import IndexView, IssueView, IssueCreateView, IssueUpdateView, \
     IssueDeleteView, StatusView, StatusCreateView, StatusUpdateView, StatusDeleteView, TypeView,\
     TypeCreateView, TypeUpdateView, TypeDeleteView
-from webapp.views.project_views import ProjectIndex, ProjectView, ProjectCreateView, ProjectUpdateView
+from webapp.views.project_views import ProjectIndex, ProjectView, ProjectCreateView, ProjectUpdateView, \
+    ProjectDeleteView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -39,4 +40,5 @@ urlpatterns = [
     path('issue/project/<int:pk>/', ProjectView.as_view(), name='project_view'),
     path('issue/project/add/', ProjectCreateView.as_view(), name='project_add'),
     path('issue/project/<int:pk>/update/', ProjectUpdateView.as_view(), name='project_update'),
+    path('issue/project/<int:pk>/delete/', ProjectDeleteView.as_view(), name='project_delete'),
 ]
