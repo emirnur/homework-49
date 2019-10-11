@@ -8,7 +8,7 @@ class TrackerIssue(models.Model):
                                  related_name='issues')
     type = models.ForeignKey('Type', on_delete=models.PROTECT, null=True, blank=True, verbose_name='Тип',
                                related_name='issues')
-    project = models.ForeignKey('Project', on_delete=models.PROTECT, null=True, blank=True, verbose_name='Проект',
+    project = models.ForeignKey('Project', on_delete=models.PROTECT, null=True, blank=False, verbose_name='Проект',
                              related_name='issues')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Время создания')
 

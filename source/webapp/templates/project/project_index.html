@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block menu %}
+    <li><a href="{% url 'project_add' %}">Add Project</a></li>
 {% endblock %}
 
 {% block content %}
@@ -14,7 +15,7 @@
         <p>Created at {{ project.created_at|date:'d.m.Y H:i:s' }}</p>
         <p>
             <a href="{% url 'project_view' project.pk %}">More...</a>
-            <a href="">Edit</a>
+            <a href="{% url 'project_update' project.pk %}">Edit</a>
             <a href="">Delete</a>
         </p>
         <hr/>

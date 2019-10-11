@@ -1,4 +1,6 @@
 from django.urls import reverse, reverse_lazy
+
+from webapp.forms import ProjectForm
 from webapp.models import Project
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
@@ -17,27 +19,34 @@ class ProjectView(DetailView):
     context_key = 'project'
     model = Project
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        project = self.object
+        issues = project.issues.order_by('-created_at')
+        context['issues'] = issues
+        return context
 
-# class IssueCreateView(CreateView):
-#     template_name = 'issue/issue_create.html'
-#     model = TrackerIssue
-#
-#     fields = ['summary', 'description', 'status', 'type']
-#
-#     def get_success_url(self):
-#         return reverse('issue_view', kwargs={'pk': self.object.pk})
-#
-#
-# class IssueUpdateView(UpdateView):
-#     model = TrackerIssue
-#     template_name = 'issue/issue_update.html'
-#     form_class = TrackerIssueForm
-#     context_object_name = 'issue'
-#
-#     def get_success_url(self):
-#         return reverse('issue_view', kwargs={'pk': self.object.pk})
-#
-#
+
+class ProjectCreateView(CreateView):
+    template_name = 'project/project_create.html'
+    model = Project
+
+    fields = ['title', 'description']
+
+    def get_success_url(self):
+        return reverse('project_view', kwargs={'pk': self.object.pk})
+
+
+class ProjectUpdateView(UpdateView):
+    model = Project
+    template_name = 'project/project_update.html'
+    form_class = ProjectForm
+    context_object_name = 'project'
+
+    def get_success_url(self):
+        return reverse('project_view', kwargs={'pk': self.object.pk})
+
+
 # class IssueDeleteView(DeleteView):
 #     template_name = 'issue/issue_delete.html'
 #     model = TrackerIssue

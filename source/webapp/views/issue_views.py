@@ -24,7 +24,7 @@ class IssueCreateView(CreateView):
     template_name = 'issue/issue_create.html'
     model = TrackerIssue
 
-    fields = ['summary', 'description', 'status', 'type']
+    fields = ['summary', 'description', 'status', 'type', 'project']
 
     def get_success_url(self):
         return reverse('issue_view', kwargs={'pk': self.object.pk})
