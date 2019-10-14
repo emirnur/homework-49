@@ -9,6 +9,7 @@
 
 {% block content %}
     <h1>Tracker Issues</h1>
+    {% include 'partial/simple_search.html' %}
     {% if is_paginated %}
         {% include 'partial/pagination.html' %}
     {% endif %}

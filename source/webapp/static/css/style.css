@@ -1,5 +1,5 @@
 form label {
-    width: 150px;
+    width: 80px;
     display: inline-block;
 }
 
@@ -85,7 +85,9 @@ h1 {
 }
 
 .pagination {
-   text-align: center;
+    text-align: center;
+    flex-direction: column;
+    margin-top: 10px;
 }
 .step-links{
     margin: auto;
@@ -112,4 +114,9 @@ h1 {
 .pagination .page-disabled {
    background: darkcyan;
    color: #dddddd
+}
+
+.page-input {
+    font-size: 16px;
+    width: 50px;
 }
