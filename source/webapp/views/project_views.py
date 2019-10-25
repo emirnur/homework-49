@@ -1,6 +1,8 @@
 from urllib.parse import urlencode
 
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
+from django.shortcuts import redirect
 from django.urls import reverse, reverse_lazy
 
 from webapp.forms import ProjectForm, SimpleSearchForm
@@ -64,6 +66,11 @@ class ProjectCreateView(CreateView):
 
     fields = ['title', 'description']
 
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return redirect('accounts:login')
+        return super().dispatch(request, *args, **kwargs)
+
     def get_success_url(self):
         return reverse('project_view', kwargs={'pk': self.object.pk})
 
@@ -74,11 +81,16 @@ class ProjectUpdateView(UpdateView):
     form_class = ProjectForm
     context_object_name = 'project'
 
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return redirect('accounts:login')
+        return super().dispatch(request, *args, **kwargs)
+
     def get_success_url(self):
         return reverse('project_view', kwargs={'pk': self.object.pk})
 
 
-class ProjectDeleteView(DeleteView):
+class ProjectDeleteView(LoginRequiredMixin, DeleteView):
     template_name = 'project/project_delete.html'
     model = Project
     context_object_name = 'project'

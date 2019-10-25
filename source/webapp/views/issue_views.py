@@ -1,6 +1,8 @@
 from urllib.parse import urlencode
 
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
+from django.shortcuts import redirect
 from django.urls import reverse, reverse_lazy
 from webapp.models import TrackerIssue
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
@@ -58,6 +60,11 @@ class IssueCreateView(CreateView):
 
     fields = ['summary', 'description', 'status', 'type', 'project']
 
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return redirect('accounts:login')
+        return super().dispatch(request, *args, **kwargs)
+
     def get_success_url(self):
         return reverse('issue_view', kwargs={'pk': self.object.pk})
 
@@ -68,11 +75,16 @@ class IssueUpdateView(UpdateView):
     form_class = TrackerIssueForm
     context_object_name = 'issue'
 
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return redirect('accounts:login')
+        return super().dispatch(request, *args, **kwargs)
+
     def get_success_url(self):
         return reverse('issue_view', kwargs={'pk': self.object.pk})
 
 
-class IssueDeleteView(DeleteView):
+class IssueDeleteView(LoginRequiredMixin,  DeleteView):
     template_name = 'issue/issue_delete.html'
     model = TrackerIssue
     context_object_name = 'issue'
