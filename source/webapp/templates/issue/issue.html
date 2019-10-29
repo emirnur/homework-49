@@ -3,9 +3,10 @@
 {% block title %}{{ issue.summary }}{% endblock %}
 
 {% block menu %}
+    <li><a href="{% url 'webapp:issue_update' issue.pk %}">Edit</a></li>
     {% if request.user.is_authenticated %}
-        <li><a href="{% url 'issue_update' issue.pk %}">Edit</a></li>
-        <li><a href="{% url 'issue_delete' issue.pk %}">Delete</a></li>
+
+        <li><a href="{% url 'webapp:issue_delete' issue.pk %}">Delete</a></li>
     {% endif%}
 {% endblock %}
 

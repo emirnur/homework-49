@@ -2,7 +2,7 @@
 
 {% block menu %}
     {% if request.user.is_authenticated %}
-        <li><a href="{% url 'type_add' %}">Add Type</a></li>
+        <li><a href="{% url 'webapp:type_add' %}">Add Type</a></li>
     {% endif %}
 {% endblock %}
 
@@ -13,8 +13,8 @@
         <h2>{{ type.name }}</h2>
         <p>
             {% if request.user.is_authenticated %}
-                <a href="{% url 'type_update' type.pk %}">Edit</a>
-                <a href="{%  url 'type_delete' type.pk %}">Delete</a>
+                <a href="{% url 'webapp:type_update' type.pk %}">Edit</a>
+                <a href="{%  url 'webapp:type_delete' type.pk %}">Delete</a>
             {% endif %}
         </p>
         <hr/>

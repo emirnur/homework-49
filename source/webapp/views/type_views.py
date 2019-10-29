@@ -24,7 +24,7 @@ class TypeCreateView(CreateView):
         return super().dispatch(request, *args, **kwargs)
 
     def get_success_url(self):
-        return reverse('type_view')
+        return reverse('webapp:type_view')
 
 
 class TypeUpdateView(UpdateView):
@@ -39,12 +39,12 @@ class TypeUpdateView(UpdateView):
         return super().dispatch(request, *args, **kwargs)
 
     def get_success_url(self):
-        return reverse('type_view')
+        return reverse('webapp:type_view')
 
 
 class TypeDeleteView(LoginRequiredMixin, DeleteView):
     template_name = 'type/type_delete.html'
     model = Type
     context_object_name = 'type'
-    success_url = reverse_lazy('type_view')
+    success_url = reverse_lazy('webapp:type_view')
 

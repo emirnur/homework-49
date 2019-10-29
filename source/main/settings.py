@@ -108,7 +108,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Bishkek'
 
 USE_I18N = True
 
@@ -121,3 +121,22 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+LOGIN_URL = 'accounts:login'
+
+HOST_NAME = 'localhost:8000'
+
+EMAIL_HOST = 'smtp.mailtrap.io'
+EMAIL_HOST_USER = '9d7f3176e4a47e'
+EMAIL_HOST_PASSWORD = '07f877c51ad36f'
+EMAIL_PORT = '2525'
+
+# config.action_mailer.delivery_method = :smtp
+# config.action_mailer.smtp_settings = {
+#   :user_name => '9d7f3176e4a47e',
+#   :password => '07f877c51ad36f',
+#   :address => 'smtp.mailtrap.io',
+#   :domain => 'smtp.mailtrap.io',
+#   :port => '2525',
+#   :authentication => :cram_md5
+# }

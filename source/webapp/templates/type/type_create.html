@@ -3,12 +3,12 @@
 {% block title %}Create Status{% endblock %}
 
 {% block menu %}
-    <li><a href="{% url 'type_view' %}">List of types</a></li>
+    <li><a href="{% url 'webapp:type_view' %}">List of types</a></li>
 {% endblock %}
 
 {% block content %}
     <h1>Create Article</h1>
-    <form method="POST" action="{% url 'type_add' %}">
-        {% include 'partial/issue_form.html' with button_text="Create" %}
+    <form method="POST" action="{% url 'webapp:type_add' %}">
+        {% include 'partial/form.html' with button_text="Create" %}
     </form>
 {% endblock %}

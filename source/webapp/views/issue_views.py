@@ -66,7 +66,7 @@ class IssueCreateView(CreateView):
         return super().dispatch(request, *args, **kwargs)
 
     def get_success_url(self):
-        return reverse('issue_view', kwargs={'pk': self.object.pk})
+        return reverse('webapp:issue_view', kwargs={'pk': self.object.pk})
 
 
 class IssueUpdateView(UpdateView):
@@ -81,11 +81,11 @@ class IssueUpdateView(UpdateView):
         return super().dispatch(request, *args, **kwargs)
 
     def get_success_url(self):
-        return reverse('issue_view', kwargs={'pk': self.object.pk})
+        return reverse('webapp:issue_view', kwargs={'pk': self.object.pk})
 
 
 class IssueDeleteView(LoginRequiredMixin,  DeleteView):
     template_name = 'issue/issue_delete.html'
     model = TrackerIssue
     context_object_name = 'issue'
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('webapp:index')

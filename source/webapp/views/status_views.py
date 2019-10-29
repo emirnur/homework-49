@@ -25,7 +25,7 @@ class StatusCreateView(CreateView):
         return super().dispatch(request, *args, **kwargs)
 
     def get_success_url(self):
-        return reverse('status_view')
+        return reverse('webapp:status_view')
 
 
 class StatusUpdateView(UpdateView):
@@ -40,12 +40,12 @@ class StatusUpdateView(UpdateView):
         return super().dispatch(request, *args, **kwargs)
 
     def get_success_url(self):
-        return reverse('status_view')
+        return reverse('webapp:status_view')
 
 
 class StatusDeleteView(LoginRequiredMixin, DeleteView):
     template_name = 'status/status_delete.html'
     model = Status
     context_object_name = 'status'
-    success_url = reverse_lazy('status_view')
+    success_url = reverse_lazy('webapp:status_view')
 
