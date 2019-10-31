@@ -1,16 +1,16 @@
-form label {
-    width: 80px;
-    display: inline-block;
+body {
+    background: cadetblue;
+    color: #222222;
+    font-family: Arial, sans-serif;
+    margin-top: 60px;
 }
 
-body{
-    background-color: cadetblue;
-    margin-top: 60px;
-    overflow-wrap: break-word;
+h1 {
+    text-align: center;
 }
 
 .container {
-    max-width: 800px;
+    max-width: 1200px;
     width: 90%;
     margin: 0 auto;
 }
@@ -25,7 +25,6 @@ body{
     font-size: 0;
     box-sizing: border-box;
     padding: 7px 30px;
-    z-index: 9999;
 }
 
 .menu {
@@ -33,7 +32,7 @@ body{
     line-height: 1;
     padding: 0;
     margin: 0;
-    display: inline-block;
+    display: block;
     color: #fffee8;
 }
 
@@ -41,21 +40,29 @@ body{
     display: inline-block;
 }
 
-.menu a {
+.menu a, .menu-text {
     display: inline-block;
     text-decoration: none;
     color: inherit;
     padding: 5px 15px;
 }
 
-h1 {
-    text-align: center;
+.menu a:hover {
+    color: #ffc122;
+    text-decoration: underline;
+}
+
+.menu-right {
+    float: right;
+}
+
+.pre {
+    white-space: pre-wrap;
 }
 
 .text-center {
     text-align: center;
 }
-
 
 .form-error {
     color: red;
@@ -66,22 +73,6 @@ h1 {
 .field-error {
     border: solid 1px red;
     box-shadow: red 0 0 3px;
-}
-
-.form-required {
-    color: red;
-    font-weight: bold;
-}
-
-.form-control {
-    padding: 5px;
-    font-size: 16px;
-    border-radius: 5px;
-    display: block;
-    width: 100%;
-    border: solid 1px lightgray;
-    box-sizing: border-box;
-    background: white;
 }
 
 .pagination {

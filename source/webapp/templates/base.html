@@ -16,14 +16,19 @@
         <div class="container">
             <ul class="menu">
                 <li><a href="{% url 'webapp:index' %}">Home</a></li>
-                {% if request.user.is_authenticated %}
-                    <li>Привет, {{ user }}!</li>
-                    <li><a href="{% url 'accounts:logout' %}">Log Out</a></li>
-                {% else %}
-                    <li><a href="{% url 'accounts:login' %}">Log In</a></li>
-                    <li><a href="{% url 'accounts:register' %}">Sign Up</a></li>
-                {% endif %}
                 {% block menu %}{% endblock %}
+                <li class="menu-right">
+                    <ul>
+                        <li><a href="{% url 'accounts:user_list' %}">List of users</a></li>
+                        {% if request.user.is_authenticated %}
+                            <li><a href="{% url 'accounts:user_detail' request.user.pk %}">Привет, {{ request.user }}!</a></li>
+                            <li><a href="{% url 'accounts:logout' %}">Log Out</a></li>
+                        {% else %}
+                            <li><a href="{% url 'accounts:login' %}">Log In</a></li>
+                            <li><a href="{% url 'accounts:register' %}">Sign Up</a></li>
+                        {% endif %}
+                    </ul>
+                </li>
             </ul>
         </div>
     </nav>
