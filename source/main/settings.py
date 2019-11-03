@@ -123,20 +123,13 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 LOGIN_URL = 'accounts:login'
+LOGIN_REDIRECT_URL = 'webapp:index'
+LOGOUT_REDIRECT_URL = 'webapp:index'
 
 HOST_NAME = 'localhost:8000'
 
-EMAIL_HOST = 'smtp.mailtrap.io'
-EMAIL_HOST_USER = '9d7f3176e4a47e'
-EMAIL_HOST_PASSWORD = '07f877c51ad36f'
-EMAIL_PORT = '2525'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
+MEDIA_URL = '/media/'
 
-# config.action_mailer.delivery_method = :smtp
-# config.action_mailer.smtp_settings = {
-#   :user_name => '9d7f3176e4a47e',
-#   :password => '07f877c51ad36f',
-#   :address => 'smtp.mailtrap.io',
-#   :domain => 'smtp.mailtrap.io',
-#   :port => '2525',
-#   :authentication => :cram_md5
-# }
+from main.settings_local import *
+
