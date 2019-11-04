@@ -1,13 +1,24 @@
+from urllib import request
 from urllib.parse import urlencode
 
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.models import User
 from django.db.models import Q
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 from django.urls import reverse, reverse_lazy
-from webapp.models import TrackerIssue
+from webapp.models import TrackerIssue, Project, Team
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from webapp.forms import TrackerIssueForm, SimpleSearchForm
 from webapp.views.base_views import DetailView
+
+
+class UserProjectIssue:
+    def checker(self, project, user):
+        print(project)
+        if project:
+            project = Project.objects.get(pk=project)
+            for user_obj in project.team.all():
+                return user_obj.user == user
 
 
 class IndexView(ListView):
@@ -54,7 +65,7 @@ class IssueView(DetailView):
     model = TrackerIssue
 
 
-class IssueCreateView(CreateView):
+class IssueCreateView(UserProjectIssue, CreateView):
     template_name = 'issue/issue_create.html'
     model = TrackerIssue
 
@@ -68,8 +79,15 @@ class IssueCreateView(CreateView):
     def get_success_url(self):
         return reverse('webapp:issue_view', kwargs={'pk': self.object.pk})
 
+    def form_valid(self, form):
+        project = self.request.POST.get('project')
+        if self.checker(project, self.request.user) is True:
+            return super().form_valid(form)
+        else:
+            return render(self.request, 'issue/invalid.html')
 
-class IssueUpdateView(UpdateView):
+
+class IssueUpdateView(UserProjectIssue, UpdateView):
     model = TrackerIssue
     template_name = 'issue/issue_update.html'
     form_class = TrackerIssueForm
@@ -83,9 +101,40 @@ class IssueUpdateView(UpdateView):
     def get_success_url(self):
         return reverse('webapp:issue_view', kwargs={'pk': self.object.pk})
 
+    def form_valid(self, form):
+        project = self.request.POST.get('project')
+        if self.checker(project, self.request.user) is True:
+            return super().form_valid(form)
+        else:
+            return render(self.request, 'issue/invalid.html')
 
-class IssueDeleteView(LoginRequiredMixin,  DeleteView):
+    def get(self, request, *args, **kwargs):
+        issue = TrackerIssue.objects.get(pk=kwargs.get('pk'))
+        project = issue.project.pk
+
+        if self.checker(project, self.request.user):
+            return super().get(request, *args, **kwargs)
+        else:
+            return render(self.request, 'issue/invalid.html')
+
+
+class IssueDeleteView(UserProjectIssue, LoginRequiredMixin,  DeleteView):
     template_name = 'issue/issue_delete.html'
     model = TrackerIssue
     context_object_name = 'issue'
     success_url = reverse_lazy('webapp:index')
+
+    def get(self, request, *args, **kwargs):
+        issue = TrackerIssue.objects.get(pk=kwargs.get('pk'))
+        project = issue.project.pk
+
+        if self.checker(project, self.request.user):
+            return super().get(request, *args, **kwargs)
+        else:
+            return render(self.request, 'issue/invalid.html')
+
+
+
+
+
+

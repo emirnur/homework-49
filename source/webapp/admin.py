@@ -1,5 +1,5 @@
 from django.contrib import admin
-from webapp.models import TrackerIssue, Type, Status, Project
+from webapp.models import TrackerIssue, Type, Status, Project, Team
 
 
 class TrackerIssueAdmin(admin.ModelAdmin):
@@ -15,3 +15,4 @@ admin.site.register(TrackerIssue, TrackerIssueAdmin)
 admin.site.register(Type)
 admin.site.register(Status)
 admin.site.register(Project)
+admin.site.register(Team)
