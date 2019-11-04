@@ -48,6 +48,14 @@ class UserChangeForm(forms.ModelForm):
             return getattr(self.instance.profile, field_name)
         return super().get_initial_for_field(field, field_name)
 
+    def clean_github(self):
+        github = self.cleaned_data.get('github')
+
+        if github[:18] != 'https://github.com' and github[:17] != 'http://github.com':
+            raise ValidationError('Invalid github url, please enter https://github.com/...', code='invalid_github')
+        else:
+            return github
+
     def save(self, commit=True):
         user = super().save(commit=commit)
         # это присваивание необходимо, чтобы при commit=False
