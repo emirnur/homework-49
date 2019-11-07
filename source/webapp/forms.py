@@ -3,6 +3,20 @@ from webapp.models import Status, Type, TrackerIssue, Project
 
 
 class TrackerIssueForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        # print(kwargs)
+        self.user = kwargs.pop('created_by')
+        super().__init__(*args, **kwargs)
+
+    def save(self, commit=True):
+        issue = super().save(commit=False)
+        issue.created_by = self.user
+        if commit:
+            issue.save()
+        return issue
+
+
     class Meta:
         model = TrackerIssue
         fields = ['summary', 'description', 'status', 'type', 'project']

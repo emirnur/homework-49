@@ -12,7 +12,7 @@
 
 {% block content %}
     <h1>{{ issue.summary }}</h1>
-    <p>Created at {{ issue.created_at|date:'d.m.Y H:i:s' }} </p>
+    <p>Created by {{ issue.created_by }} at {{ issue.created_at|date:'d.m.Y H:i:s' }} </p>
     <div class="pre">description: {{issue.description}}</div>
     <p>Type is {{ issue.type|default_if_none:'is not defined' }}</p>
     <p>Status is {{ issue.status|default_if_none:'is not defined' }}</p>

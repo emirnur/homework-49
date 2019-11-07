@@ -14,7 +14,6 @@ from webapp.views.base_views import DetailView
 
 class UserProjectIssue:
     def checker(self, project, user):
-        print(project)
         if project:
             project = Project.objects.get(pk=project)
             for user_obj in project.team.all():
@@ -69,7 +68,18 @@ class IssueCreateView(UserProjectIssue, CreateView):
     template_name = 'issue/issue_create.html'
     model = TrackerIssue
 
-    fields = ['summary', 'description', 'status', 'type', 'project']
+    fields = ['summary', 'description', 'status', 'type', 'project', 'created_by', 'assigned_to']
+
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class=None)
+        form.fields.pop('created_by')
+        form.instance.created_by = self.request.user
+        return form
+
+    # def get_form_kwargs(self):
+    #     kwargs = super().get_form_kwargs()
+    #     kwargs['created_by'] = self.request.user
+    #     return kwargs
 
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
