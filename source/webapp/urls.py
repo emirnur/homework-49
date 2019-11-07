@@ -8,7 +8,7 @@ from webapp.views.project_views import ProjectIndex, ProjectView, ProjectCreateV
 urlpatterns = [
     path('', IndexView.as_view(), name='index'),
     path('issue/<int:pk>/', IssueView.as_view(), name='issue_view'),
-    path('issue/add/', IssueCreateView.as_view(), name='issue_add'),
+    path('issue/<int:pk>/add/', IssueCreateView.as_view(), name='issue_add'),
     path('issue/<int:pk>/update/', IssueUpdateView.as_view(), name='issue_update'),
     path('issue/<int:pk>/delete/', IssueDeleteView.as_view(), name='issue_delete'),
     path('issue/status/', StatusView.as_view(), name='status_view'),

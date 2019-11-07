@@ -4,7 +4,7 @@ from urllib.parse import urlencode
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.db.models import Q
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, get_object_or_404
 from django.urls import reverse, reverse_lazy
 from webapp.models import TrackerIssue, Project, Team
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
@@ -16,7 +16,7 @@ class UserProjectIssue:
     def checker(self, project, user):
         if project:
             project = Project.objects.get(pk=project)
-            for user_obj in project.team.all():
+            for user_obj in project.team_project.all():
                 return user_obj.user == user
 
 
@@ -67,19 +67,31 @@ class IssueView(DetailView):
 class IssueCreateView(UserProjectIssue, CreateView):
     template_name = 'issue/issue_create.html'
     model = TrackerIssue
+    form_class = TrackerIssueForm
 
-    fields = ['summary', 'description', 'status', 'type', 'project', 'created_by', 'assigned_to']
+    # fields = ['summary', 'description', 'status', 'type', 'project', 'created_by', 'assigned_to']
 
     def get_form(self, form_class=None):
         form = super().get_form(form_class=None)
         form.fields.pop('created_by')
-        form.instance.created_by = self.request.user
+        form.fields.pop('project')
         return form
+
 
     # def get_form_kwargs(self):
     #     kwargs = super().get_form_kwargs()
-    #     kwargs['created_by'] = self.request.user
+    #     kwargs['project'] = get_object_or_404(Project, pk=self.kwargs['pk'])
     #     return kwargs
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['user'] = self.request.user
+        kwargs['project'] = get_object_or_404(Project, pk=self.kwargs['pk'])
+        return kwargs
+
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data()
+    #     context['project'] = get_object_or_404(Project, pk=self.kwargs['pk'])
 
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
@@ -89,12 +101,12 @@ class IssueCreateView(UserProjectIssue, CreateView):
     def get_success_url(self):
         return reverse('webapp:issue_view', kwargs={'pk': self.object.pk})
 
-    def form_valid(self, form):
-        project = self.request.POST.get('project')
-        if self.checker(project, self.request.user) is True:
-            return super().form_valid(form)
-        else:
-            return render(self.request, 'issue/invalid.html')
+    # def form_valid(self, form):
+    #     project = self.request.POST.get('project')
+    #     if self.checker(project, self.request.user) is True:
+    #         return super().form_valid(form)
+    #     else:
+    #         return render(self.request, 'issue/invalid.html')
 
 
 class IssueUpdateView(UserProjectIssue, UpdateView):
@@ -111,21 +123,35 @@ class IssueUpdateView(UserProjectIssue, UpdateView):
     def get_success_url(self):
         return reverse('webapp:issue_view', kwargs={'pk': self.object.pk})
 
-    def form_valid(self, form):
-        project = self.request.POST.get('project')
-        if self.checker(project, self.request.user) is True:
-            return super().form_valid(form)
-        else:
-            return render(self.request, 'issue/invalid.html')
+    # def form_valid(self, form):
+    #     project = self.request.POST.get('project')
+    #     if self.checker(project, self.request.user) is True:
+    #         return super().form_valid(form)
+    #     else:
+    #         return render(self.request, 'issue/invalid.html')
 
-    def get(self, request, *args, **kwargs):
-        issue = TrackerIssue.objects.get(pk=kwargs.get('pk'))
-        project = issue.project.pk
+    # def get(self, request, *args, **kwargs):
+    #     issue = TrackerIssue.objects.get(pk=kwargs.get('pk'))
+    #     project = issue.project.pk
+    #
+    #     if self.checker(project, self.request.user):
+    #         return super().get(request, *args, **kwargs)
+    #     else:
+    #         return render(self.request, 'issue/invalid.html')
 
-        if self.checker(project, self.request.user):
-            return super().get(request, *args, **kwargs)
-        else:
-            return render(self.request, 'issue/invalid.html')
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class=None)
+        form.fields.pop('created_by')
+        form.fields.pop('project')
+        return form
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['user'] = self.request.user
+        print(self.kwargs['pk'])
+        issue = get_object_or_404(TrackerIssue, pk=self.kwargs['pk'])
+        kwargs['project'] = Project.objects.get(issues_project=issue)
+        return kwargs
 
 
 class IssueDeleteView(UserProjectIssue, LoginRequiredMixin,  DeleteView):

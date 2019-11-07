@@ -2,9 +2,9 @@
 {% load staticfiles %}
 
 {% block menu %}
-    {% if request.user.is_authenticated %}
-        <li><a href="{% url 'webapp:issue_add' %}">Add Issue</a>
-    {% endif %}
+{#    {% if request.user.is_authenticated %}#}
+{#        <li><a href="{% url 'webapp:issue_add' %}">Add Issue</a>#}
+{#    {% endif %}#}
     <li><a href="{% url 'webapp:status_view' %}">List of statuses</a></li>
     <li><a href="{% url 'webapp:type_view' %}">List of types</a></li>
     <li><a href="{% url 'webapp:project_index' %}">List of projects</a></li>

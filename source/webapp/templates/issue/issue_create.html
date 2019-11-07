@@ -5,7 +5,7 @@
 
 {% block content %}
     <h1>Create Issue</h1>
-    <form method="POST" action="{% url 'webapp:issue_add' %}">
+    <form method="POST" action="">
         {% include 'partial/form.html' with button_text="Create" %}
     </form>
 {% endblock %}

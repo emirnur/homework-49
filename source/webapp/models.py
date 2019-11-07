@@ -17,7 +17,7 @@ class TrackerIssue(models.Model):
                              related_name='issues_project')
     created_by = models.ForeignKey(User, null=False, blank=False, default=get_admin, verbose_name='Автор задачи',
                                on_delete=models.PROTECT, related_name='issues_created_by')
-    assigned_to = models.ForeignKey(User, null=False, blank=False, default=get_admin, verbose_name='Исполнитель задачи',
+    assigned_to = models.ForeignKey(User, null=True, blank=True, verbose_name='Исполнитель задачи',
                                    on_delete=models.PROTECT, related_name='issues_assigned_to')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Время создания')
 
@@ -54,8 +54,8 @@ class Project(models.Model):
 
 
 class Team(models.Model):
-    user = models.ForeignKey('auth.User', on_delete=models.CASCADE, verbose_name='Пользователь', related_name='team')
-    project = models.ForeignKey('Project', on_delete=models.CASCADE, verbose_name='Проект', related_name='team')
+    user = models.ForeignKey('auth.User', on_delete=models.CASCADE, verbose_name='Пользователь', related_name='team_user')
+    project = models.ForeignKey('Project', on_delete=models.CASCADE, verbose_name='Проект', related_name='team_project')
     date_start = models.DateField(max_length=50, verbose_name='Дата создания')
     date_end = models.DateField(max_length=50, verbose_name='Дата окончания')
 
