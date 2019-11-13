@@ -57,6 +57,6 @@ class Team(models.Model):
     user = models.ForeignKey('auth.User', on_delete=models.CASCADE, verbose_name='Пользователь', related_name='team_user')
     project = models.ForeignKey('Project', on_delete=models.CASCADE, verbose_name='Проект', related_name='team_project')
     date_start = models.DateField(max_length=50, verbose_name='Дата создания')
-    date_end = models.DateField(max_length=50, verbose_name='Дата окончания')
+    date_end = models.DateField(max_length=50, verbose_name='Дата окончания', null=True, blank=True)
 
 

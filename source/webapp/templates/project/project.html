@@ -20,7 +20,10 @@
         <h3>Issues:</h3>
         {% for issue in issues %}
             <p>{{ issue.summary }} ({{ issue.type }}) created at {{ issue.created_at|date:'d.m.Y H:i:s' }}</p>
-
+        {% endfor %}
+        <h3>Users:</h3>
+        {% for user in users %}
+            <p>{{ user.username }}</p>
         {% endfor %}
 
 {% endblock %}

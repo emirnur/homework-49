@@ -7,8 +7,6 @@ from webapp.models import Status, Type, TrackerIssue, Project
 class TrackerIssueForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
-        print('here')
-        print(kwargs, 'here')
         self.user = kwargs.pop('user')
         self.project = kwargs.pop('project')
         super().__init__(*args, **kwargs)
@@ -41,6 +39,11 @@ class TypeForm(forms.ModelForm):
 
 
 class ProjectForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['users'] = forms.ModelMultipleChoiceField(queryset=User.objects.all(), required=False)
+
     class Meta:
         model = Project
         fields = ['title', 'description']
