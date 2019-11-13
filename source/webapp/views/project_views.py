@@ -56,11 +56,10 @@ class ProjectView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        print(kwargs)
         project = self.object
         issues = project.issues_project.order_by('-created_at')
         context['issues'] = issues
-        users = User.objects.filter(team_user__project=self.object, team_user__date_end=None)
+        users = Team.objects.filter(project=self.object, date_end=None)
         context['users'] = users
         return context
 
@@ -114,3 +113,15 @@ class ProjectDeleteView(LoginRequiredMixin, DeleteView):
     model = Project
     context_object_name = 'project'
     success_url = reverse_lazy('webapp:project_index')
+
+
+class TeamUserDelete(LoginRequiredMixin, DeleteView):
+    model = Team
+
+    def delete(self, request, *args, **kwargs):
+        print(kwargs)
+        self.object = self.get_object()
+        print(self.object)
+        self.object.date_end = datetime.now()
+        self.object.save()
+        return redirect(reverse('webapp:project_view', kwargs={'pk': self.object.project.pk}))
