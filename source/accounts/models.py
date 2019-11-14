@@ -13,11 +13,11 @@ class Token(models.Model):
 
 
 class Profile(models.Model):
-    user = models.OneToOneField(User, related_name='profile', on_delete=models.CASCADE,
+    user = models.OneToOneField('auth.User', related_name='profile', on_delete=models.CASCADE,
                                 verbose_name='Пользователь')
     avatar = models.ImageField(null=True, blank=True,
                                upload_to='user_pics', verbose_name='Аватар')
-    description = models.TextField(null=True, blank= True, verbose_name='О себе')
+    description = models.TextField(null=True, blank=True, verbose_name='О себе')
     github = models.URLField(null=True, blank=True, verbose_name='GitHub')
 
     def __str__(self):

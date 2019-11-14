@@ -1,7 +1,7 @@
 from datetime import datetime
 from urllib.parse import urlencode
 
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.models import User
 from django.db.models import Q
 from django.shortcuts import redirect
@@ -64,10 +64,12 @@ class ProjectView(DetailView):
         return context
 
 
-class ProjectCreateView(CreateView):
+class ProjectCreateView(PermissionRequiredMixin, CreateView):
     template_name = 'project/project_create.html'
     model = Project
     form_class = ProjectForm
+    permission_required = 'webapp.add_project'
+    permission_denied_message = 'Доступ запрещен!'
 
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
@@ -88,11 +90,13 @@ class ProjectCreateView(CreateView):
         return redirect(self.get_success_url())
 
 
-class ProjectUpdateView(UpdateView):
+class ProjectUpdateView(PermissionRequiredMixin, UpdateView):
     model = Project
     template_name = 'project/project_update.html'
     form_class = ProjectForm
     context_object_name = 'project'
+    permission_required = 'webapp.change_project'
+    permission_denied_message = 'You have no permissions!'
 
     def get_form(self, form_class=None):
         form = super().get_form(form_class=None)
@@ -108,20 +112,22 @@ class ProjectUpdateView(UpdateView):
         return reverse('webapp:project_view', kwargs={'pk': self.object.pk})
 
 
-class ProjectDeleteView(LoginRequiredMixin, DeleteView):
+class ProjectDeleteView(PermissionRequiredMixin, LoginRequiredMixin, DeleteView):
     template_name = 'project/project_delete.html'
     model = Project
     context_object_name = 'project'
     success_url = reverse_lazy('webapp:project_index')
+    permission_required = 'webapp.delete_project'
+    permission_denied_message = 'You have no permissions!'
 
 
-class TeamUserDelete(LoginRequiredMixin, DeleteView):
+class TeamUserDelete(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     model = Team
+    permission_required = 'webapp.delete_team'
+    permission_denied_message = 'You have no permissions!'
 
     def delete(self, request, *args, **kwargs):
-        print(kwargs)
         self.object = self.get_object()
-        print(self.object)
         self.object.date_end = datetime.now()
         self.object.save()
         return redirect(reverse('webapp:project_view', kwargs={'pk': self.object.project.pk}))

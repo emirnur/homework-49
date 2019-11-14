@@ -119,3 +119,10 @@ h1 {
     height: auto;
     margin-right: 20px;
 }
+
+.project-user-show{
+    display: flex;
+}
+.project-user-show form{
+    padding-left: 10px;
+}

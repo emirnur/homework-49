@@ -40,7 +40,7 @@ class SignUpForm(forms.Form):
 
 class UserChangeForm(forms.ModelForm):
     avatar = forms.ImageField(label='Аватар', required=False)
-    description = forms.CharField(label='О себе', required=False )
+    description = forms.CharField(label='О себе', required=False)
     github = forms.URLField(label='GitHub', required=False)
 
     def get_initial_for_field(self, field, field_name):

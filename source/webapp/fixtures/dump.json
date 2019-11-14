@@ -5,9 +5,11 @@
   "fields": {
     "summary": "Issue_1",
     "description": "Python/django",
-    "status": 2,
+    "status": 10,
     "type": 2,
     "project": 1,
+    "created_by": 1,
+    "assigned_to": 1,
     "created_at": "2019-10-10T18:08:33.125Z"
   }
 },
@@ -20,6 +22,8 @@
     "status": 2,
     "type": 3,
     "project": 2,
+    "created_by": 1,
+    "assigned_to": 1,
     "created_at": "2019-10-10T18:11:14.517Z"
   }
 },
@@ -32,7 +36,79 @@
     "status": 10,
     "type": 7,
     "project": 1,
+    "created_by": 1,
+    "assigned_to": 1,
     "created_at": "2019-10-10T18:11:38.771Z"
+  }
+},
+{
+  "model": "webapp.trackerissue",
+  "pk": 14,
+  "fields": {
+    "summary": "issue_4",
+    "description": "Cotlin/Java",
+    "status": 3,
+    "type": 2,
+    "project": 5,
+    "created_by": 1,
+    "assigned_to": 1,
+    "created_at": "2019-10-11T09:05:15.103Z"
+  }
+},
+{
+  "model": "webapp.trackerissue",
+  "pk": 15,
+  "fields": {
+    "summary": "Issue_5",
+    "description": "C#",
+    "status": 10,
+    "type": 7,
+    "project": 2,
+    "created_by": 1,
+    "assigned_to": 1,
+    "created_at": "2019-10-15T11:10:28.685Z"
+  }
+},
+{
+  "model": "webapp.trackerissue",
+  "pk": 16,
+  "fields": {
+    "summary": "Issue_6",
+    "description": "C++/datasince-python",
+    "status": 10,
+    "type": 2,
+    "project": 6,
+    "created_by": 1,
+    "assigned_to": 1,
+    "created_at": "2019-10-15T11:11:15.870Z"
+  }
+},
+{
+  "model": "webapp.trackerissue",
+  "pk": 18,
+  "fields": {
+    "summary": "Issue_12",
+    "description": "sdfsadfdsaf",
+    "status": 3,
+    "type": 3,
+    "project": 2,
+    "created_by": 1,
+    "assigned_to": 1,
+    "created_at": "2019-11-04T11:48:31.481Z"
+  }
+},
+{
+  "model": "webapp.trackerissue",
+  "pk": 22,
+  "fields": {
+    "summary": "issue_22",
+    "description": "sdvsdvs",
+    "status": 2,
+    "type": 2,
+    "project": 1,
+    "created_by": 11,
+    "assigned_to": null,
+    "created_at": "2019-11-07T12:13:17.642Z"
   }
 },
 {
@@ -82,9 +158,9 @@
   "pk": 1,
   "fields": {
     "title": "Project_1",
-    "description": "Project for create website",
+    "description": "Project for create website1",
     "created_at": "2019-10-10T18:06:27.440Z",
-    "updated_at": "2019-10-10T18:06:27.440Z"
+    "updated_at": "2019-11-14T10:07:53.850Z"
   }
 },
 {
@@ -94,25 +170,197 @@
     "title": "Project_2",
     "description": "project for improve website",
     "created_at": "2019-10-10T18:07:16.055Z",
-    "updated_at": "2019-10-10T18:07:16.055Z"
+    "updated_at": "2019-10-28T19:19:09.822Z"
   }
 },
 {
-  "model": "auth.user",
-  "pk": 1,
+  "model": "webapp.project",
+  "pk": 5,
   "fields": {
-    "password": "pbkdf2_sha256$150000$kakuqenUOkvM$nekWyGS4aBnoFye6kltgxOh7JoClIElNy2ueJ2fcpE8=",
-    "last_login": "2019-10-10T18:01:53.138Z",
-    "is_superuser": true,
-    "username": "admin",
-    "first_name": "",
-    "last_name": "",
-    "email": "",
-    "is_staff": true,
-    "is_active": true,
-    "date_joined": "2019-09-25T18:00:06.806Z",
-    "groups": [],
-    "user_permissions": []
+    "title": "Project_3",
+    "description": "project for mobile apps",
+    "created_at": "2019-10-11T09:04:19.736Z",
+    "updated_at": "2019-10-11T09:04:19.737Z"
+  }
+},
+{
+  "model": "webapp.project",
+  "pk": 6,
+  "fields": {
+    "title": "Foods",
+    "description": "About food shops app",
+    "created_at": "2019-10-14T18:52:07.070Z",
+    "updated_at": "2019-10-14T18:52:07.071Z"
+  }
+},
+{
+  "model": "webapp.project",
+  "pk": 8,
+  "fields": {
+    "title": "Project_5",
+    "description": "nhffdhfh",
+    "created_at": "2019-11-13T13:29:56.292Z",
+    "updated_at": "2019-11-13T13:29:56.292Z"
+  }
+},
+{
+  "model": "webapp.project",
+  "pk": 10,
+  "fields": {
+    "title": "Project_6",
+    "description": "regtregtr",
+    "created_at": "2019-11-13T13:59:25.514Z",
+    "updated_at": "2019-11-13T13:59:25.514Z"
+  }
+},
+{
+  "model": "webapp.project",
+  "pk": 12,
+  "fields": {
+    "title": "Project_7",
+    "description": "fvdsfvdsvf",
+    "created_at": "2019-11-14T10:08:26.419Z",
+    "updated_at": "2019-11-14T10:08:26.419Z"
+  }
+},
+{
+  "model": "webapp.project",
+  "pk": 13,
+  "fields": {
+    "title": "Project_8",
+    "description": "dfvdfvdfvfdvfdvfd",
+    "created_at": "2019-11-14T11:02:02.904Z",
+    "updated_at": "2019-11-14T11:02:02.904Z"
+  }
+},
+{
+  "model": "webapp.team",
+  "pk": 12,
+  "fields": {
+    "user": 12,
+    "project": 5,
+    "date_start": "2019-11-10",
+    "date_end": null
+  }
+},
+{
+  "model": "webapp.team",
+  "pk": 13,
+  "fields": {
+    "user": 13,
+    "project": 2,
+    "date_start": "2019-11-14",
+    "date_end": null
+  }
+},
+{
+  "model": "webapp.team",
+  "pk": 14,
+  "fields": {
+    "user": 11,
+    "project": 2,
+    "date_start": "2019-11-13",
+    "date_end": null
+  }
+},
+{
+  "model": "webapp.team",
+  "pk": 15,
+  "fields": {
+    "user": 11,
+    "project": 5,
+    "date_start": "2019-11-13",
+    "date_end": null
+  }
+},
+{
+  "model": "webapp.team",
+  "pk": 16,
+  "fields": {
+    "user": 1,
+    "project": 12,
+    "date_start": "2019-11-14",
+    "date_end": null
+  }
+},
+{
+  "model": "webapp.team",
+  "pk": 17,
+  "fields": {
+    "user": 10,
+    "project": 12,
+    "date_start": "2019-11-14",
+    "date_end": null
+  }
+},
+{
+  "model": "webapp.team",
+  "pk": 18,
+  "fields": {
+    "user": 11,
+    "project": 12,
+    "date_start": "2019-11-14",
+    "date_end": null
+  }
+},
+{
+  "model": "webapp.team",
+  "pk": 19,
+  "fields": {
+    "user": 12,
+    "project": 12,
+    "date_start": "2019-11-14",
+    "date_end": null
+  }
+},
+{
+  "model": "webapp.team",
+  "pk": 20,
+  "fields": {
+    "user": 13,
+    "project": 12,
+    "date_start": "2019-11-14",
+    "date_end": null
+  }
+},
+{
+  "model": "webapp.team",
+  "pk": 21,
+  "fields": {
+    "user": 1,
+    "project": 13,
+    "date_start": "2019-11-14",
+    "date_end": null
+  }
+},
+{
+  "model": "webapp.team",
+  "pk": 22,
+  "fields": {
+    "user": 9,
+    "project": 13,
+    "date_start": "2019-11-14",
+    "date_end": null
+  }
+},
+{
+  "model": "webapp.team",
+  "pk": 23,
+  "fields": {
+    "user": 10,
+    "project": 13,
+    "date_start": "2019-11-14",
+    "date_end": null
+  }
+},
+{
+  "model": "webapp.team",
+  "pk": 24,
+  "fields": {
+    "user": 11,
+    "project": 13,
+    "date_start": "2019-11-14",
+    "date_end": null
   }
 }
 ]

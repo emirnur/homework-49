@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load staticfiles %}
 
 {% block title %}{{ project.title }}{% endblock %}
 
@@ -21,13 +22,17 @@
         {% for issue in issues %}
             <p>{{ issue.summary }} ({{ issue.type }}) created at {{ issue.created_at|date:'d.m.Y H:i:s' }}</p>
         {% endfor %}
-        <h3>Users:</h3>
-        {% for user_obj in users %}
+    </div>
+    <hr>
+    <h3>Users:</h3>
+    {% for user_obj in users %}
+        <div class="project-user-show">
             <p>{{ user_obj.user.username }} started {{ user_obj.date_start}}</p>
             <form action="{% url 'webapp:team_delete' user_obj.pk %}" method="POST">
                 {% csrf_token %}
                 <button class="button">Delete</button>
             </form>
-        {% endfor %}
+        </div>
+    {% endfor %}
 
 {% endblock %}

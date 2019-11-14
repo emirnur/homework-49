@@ -1,7 +1,7 @@
 from urllib import request
 from urllib.parse import urlencode
 
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.models import User
 from django.db.models import Q
 from django.shortcuts import redirect, render, get_object_or_404
@@ -64,10 +64,12 @@ class IssueView(DetailView):
     model = TrackerIssue
 
 
-class IssueCreateView(UserProjectIssue, CreateView):
+class IssueCreateView(PermissionRequiredMixin, UserProjectIssue, CreateView):
     template_name = 'issue/issue_create.html'
     model = TrackerIssue
     form_class = TrackerIssueForm
+    permission_required = 'webapp.webapp.add_trackerissue'
+    permission_denied_message = 'You have no permissions!'
 
     # fields = ['summary', 'description', 'status', 'type', 'project', 'created_by', 'assigned_to']
 
@@ -109,11 +111,13 @@ class IssueCreateView(UserProjectIssue, CreateView):
     #         return render(self.request, 'issue/invalid.html')
 
 
-class IssueUpdateView(UserProjectIssue, UpdateView):
+class IssueUpdateView(PermissionRequiredMixin, UserProjectIssue, UpdateView):
     model = TrackerIssue
     template_name = 'issue/issue_update.html'
     form_class = TrackerIssueForm
     context_object_name = 'issue'
+    permission_required = 'webapp.change_trackerissue'
+    permission_denied_message = 'You have no permissions!'
 
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
@@ -154,11 +158,13 @@ class IssueUpdateView(UserProjectIssue, UpdateView):
         return kwargs
 
 
-class IssueDeleteView(UserProjectIssue, LoginRequiredMixin,  DeleteView):
+class IssueDeleteView(UserProjectIssue, LoginRequiredMixin, PermissionRequiredMixin,  DeleteView):
     template_name = 'issue/issue_delete.html'
     model = TrackerIssue
     context_object_name = 'issue'
     success_url = reverse_lazy('webapp:index')
+    permission_required = 'webapp.delete_trackerissue'
+    permission_denied_message = 'You have no permissions!'
 
     def get(self, request, *args, **kwargs):
         issue = TrackerIssue.objects.get(pk=kwargs.get('pk'))
