@@ -100,13 +100,43 @@ class ProjectUpdateView(PermissionRequiredMixin, UpdateView):
 
     def get_form(self, form_class=None):
         form = super().get_form(form_class=None)
-        form.fields.pop('users')
+        form.fields['users'].initial = Team.objects.filter(project=self.object)
         return form
 
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
             return redirect('accounts:login')
         return super().dispatch(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        users_team = self.request.POST.getlist('users')
+        users_old = []
+
+        string = Team.objects.filter(project=self.object, date_end=None)
+
+        for user in string:
+            users_old.append(user.user)
+        print(users_old)
+
+        users_new = []
+        for user_pk in users_team:
+            users_new.append(User.objects.get(pk=user_pk))
+
+        for user in users_old:
+            if user in users_new:
+                continue
+            else:
+                user = Team.objects.get(user=user)
+                user.date_end = datetime.now()
+                user.save()
+
+        for user in users_new:
+            Team.objects.get_or_create(user=user, project=self.object, date_start=datetime.now(), date_end=None)
+
+
+
+
+        return super().form_valid(form)
 
     def get_success_url(self):
         return reverse('webapp:project_view', kwargs={'pk': self.object.pk})

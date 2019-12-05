@@ -59,4 +59,6 @@ class Team(models.Model):
     date_start = models.DateField(max_length=50, verbose_name='Дата создания')
     date_end = models.DateField(max_length=50, verbose_name='Дата окончания', null=True, blank=True)
 
+    def __str__(self):
+        return f'{self.user} - {self.project}'
 

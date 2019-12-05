@@ -7,7 +7,7 @@ from django.urls import reverse
 from django.views.generic import DetailView, UpdateView, ListView
 
 from accounts.forms import SignUpForm, UserChangeForm, UserChangePasswordForm
-from accounts.models import Token
+from accounts.models import Token, Profile
 from main.settings import HOST_NAME
 
 
@@ -47,6 +47,8 @@ def register_view(request):
             )
             user.set_password(form.cleaned_data.get('password'))
             user.save()
+
+            Profile.objects.get_or_create(user=user)
 
             token = Token.objects.create(user=user)
 
