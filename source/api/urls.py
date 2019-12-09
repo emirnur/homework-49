@@ -1,6 +1,8 @@
 from django.urls import path, include
 from rest_framework import routers
-from api.views import ProjectViewSet, IssueViewSet
+from rest_framework.authtoken.views import obtain_auth_token
+
+from api.views import ProjectViewSet, IssueViewSet, LogoutView
 
 router = routers.DefaultRouter()
 router.register(r'projects', ProjectViewSet)
@@ -12,5 +14,6 @@ app_name = 'api'
 
 urlpatterns = [
     path('', include(router.urls)),
-    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path('login/', obtain_auth_token, name='obtain_auth_token'),
+    path('logout/', LogoutView.as_view(), name='delete_auth_token'),
 ]
